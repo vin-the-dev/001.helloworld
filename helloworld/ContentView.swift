@@ -9,12 +9,25 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("It's a new world!!! Thanks for watching")
-            .font(.largeTitle)
-            .fontWeight(.medium)
-            .foregroundColor(Color.red)
-            .multilineTextAlignment(.center)
-            .padding()
+        VStack {
+            Text("Hello World")
+                .font(.largeTitle)
+                .fontWeight(.medium)
+                .foregroundColor(Color.red)
+                .multilineTextAlignment(.center)
+                .padding()
+            Button {
+                print("Button Tapped")
+            } label: {
+                Text("Button Name")
+                    .foregroundColor(.white)
+                    .frame(width: 300, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .background(Color.blue)
+                    .cornerRadius(50)
+                
+                
+            }
+        }
     }
 }
 

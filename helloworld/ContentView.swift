@@ -13,50 +13,65 @@ struct ContentView: View {
     @State var txtPassword: String = ""
     
     
+    let gradientColorStart = Color(UIColor(hex: "#F05E02FF")!)
+    let gradientColorEnd = Color(UIColor(hex: "#F08801FF")!)
+    
+    
     var body: some View {
-        ZStack {
-            Color(UIColor(hex: "#37A9E1FF")!)
+        GeometryReader { metric in
+            ZStack {
+                VStack (alignment: .leading) {
+                    ZStack {
+                        Image("iron-man")
+                            .resizable()
+                            .frame(width: 100, height: 100, alignment: .center)
+                        VStack {
+                            Spacer()
+                            HStack {
+                                Spacer()
+                                Text("Login")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.white)
+                                    .padding(.bottom, 50)
+                                    .padding()
+                            }
+                        }
+                    }
+                }
+                .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,
+                       maxWidth: .infinity,
+                       minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,
+                       maxHeight: metric.size.height * 0.5,
+                       alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .background(
+                    LinearGradient(
+                        gradient: Gradient(
+                            colors: [gradientColorStart, gradientColorEnd]),
+                        startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/,
+                        endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/)
+                )
+                .clipShape(CustomShape())
                 .ignoresSafeArea()
-            VStack {
-                VStack {
-                    VStack(alignment: .leading) {
-                        Text("Email")
-                            .font(.title)
-                            .fontWeight(.medium)
-                            .multilineTextAlignment(.center)
-                            .padding()
-                        TextField("Enter Email", text:$txtEmail)
-                            .keyboardType(.emailAddress)
-                            .font(.title)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-                    }
-                    VStack(alignment: .leading) {
-                        Text("Password")
-                            .font(.title)
-                            .fontWeight(.medium)
-                            .multilineTextAlignment(.center)
-                            .padding()
-                        SecureField("Enter Password", text: $txtPassword)
-                            .font(.title)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-                    }
-                }
-                Button {
-                    print("Button Tapped")
-                } label: {
-                    Text("Login")
-                        .foregroundColor(.white)
-                        .font(.title)
-                        .bold()
-                        .frame(width: 300, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .background(Color(UIColor(hex: "#1F70B6FF")!))
-                        .cornerRadius(50)
-                    
-                    
-                }
             }
+        }
+    }
+}
+
+struct CustomShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        return Path { path in
+            let p1 = CGPoint(x: rect.width, y: 0)
+            let p2 = CGPoint(x: 0, y: 0)
+            let p3 = CGPoint(x: 0, y: rect.height)
+            let p4 = CGPoint(x: rect.width, y: rect.height)
+            
+            path.move(to: p4)
+            
+            path.addArc(tangent1End: p1, tangent2End: p2, radius: 0)
+            path.addArc(tangent1End: p2, tangent2End: p3, radius: 0)
+            path.addArc(tangent1End: p3, tangent2End: p4, radius: 100)
+            path.addArc(tangent1End: p4, tangent2End: p1, radius: 0)
+            
         }
     }
 }

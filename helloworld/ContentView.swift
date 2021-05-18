@@ -20,38 +20,106 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { metric in
             ZStack {
-                VStack (alignment: .leading) {
-                    ZStack {
-                        Image("iron-man")
-                            .resizable()
-                            .frame(width: 100, height: 100, alignment: .center)
-                        VStack {
-                            Spacer()
-                            HStack {
+                VStack {
+                    VStack (alignment: .leading) {
+                        ZStack {
+                            Image("iron-man")
+                                .resizable()
+                                .frame(width: 100, height: 100, alignment: .center)
+                            VStack {
                                 Spacer()
-                                Text("Login")
-                                    .font(.largeTitle)
-                                    .foregroundColor(.white)
-                                    .padding(.bottom, 50)
-                                    .padding()
+                                HStack {
+                                    Spacer()
+                                    Text("Login")
+                                        .font(.largeTitle)
+                                        .foregroundColor(.white)
+                                        .padding(.bottom, 50)
+                                        .padding()
+                                }
                             }
                         }
                     }
+                    .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,
+                           maxWidth: .infinity,
+                           minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,
+                           maxHeight: metric.size.height * 0.5,
+                           alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(
+                                colors: [gradientColorStart, gradientColorEnd]),
+                            startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/,
+                            endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/)
+                    )
+                    .clipShape(CustomShape())
+                    .ignoresSafeArea()
+                    Spacer()
                 }
-                .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,
-                       maxWidth: .infinity,
-                       minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,
-                       maxHeight: metric.size.height * 0.5,
-                       alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                .background(
-                    LinearGradient(
-                        gradient: Gradient(
-                            colors: [gradientColorStart, gradientColorEnd]),
-                        startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/,
-                        endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/)
-                )
-                .clipShape(CustomShape())
-                .ignoresSafeArea()
+                VStack {
+                    Spacer()
+                    VStack {
+                        VStack {
+                            HStack {
+                                Image("mail")
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
+                                    .padding()
+                                TextField("Email", text:$txtEmail)
+                                    .frame(height: 30)
+                            }
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(color: Color.black.opacity(0.5), radius: 10, x: 0.0, y: 0.0)
+                            .padding(.all, 10)
+                            
+                            HStack {
+                                Image("password")
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
+                                    .padding()
+                                SecureField("Password", text:$txtEmail)
+                                    .frame(height: 30)
+                            }
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .shadow(color: Color.black.opacity(0.5), radius: 10, x: 0.0, y: 0.0)
+                            .padding(.all, 10)
+                            HStack {
+                                Spacer()
+                                Text("Forgot Password?")
+                                    .font(.footnote)
+                            }
+                            .padding(.all, 10)
+                            Button {
+                                print("Login Tapped")
+                            } label: {
+                                Text("Login")
+                                    .foregroundColor(.white)
+                                    .font(.body)
+                                    .frame(width: 300, height: 50, alignment: .center)
+                                    .background(
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [gradientColorStart, gradientColorEnd]), startPoint: .leading, endPoint: .trailing)
+                                    )
+                                    .cornerRadius(25)
+                            }
+                            
+                            HStack {
+                                Text("Don't have an account?")
+                                Text("Register")
+                                    .foregroundColor(gradientColorStart)
+                            }
+                            .padding(.top, 10)
+                        }
+                        .padding()
+                        
+                    }
+                    .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,
+                           maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,
+                           minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,
+                           maxHeight: metric.size.height * 0.5,
+                           alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                }
             }
         }
     }
